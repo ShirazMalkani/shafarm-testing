@@ -2,23 +2,36 @@ package com.raqami.shafarm.view;
 
 import com.raqami.shafarm.selenium.config.SeleniumConfig;
 import org.junit.*;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.net.URISyntaxException;
-
 import static org.junit.Assert.assertEquals;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class AdactinHotelTest {
 
     private static SeleniumConfig seleniumConfig;
     private static WebDriver driver;
 
-    private final String adactinHotelLoginpageUrl = "https://adactin.com/HotelApp/";
-    private final String username = "ShirazMalkani";
-    private final String password = "Malkani";
-    private final String invalidUsername = "abc";
+    @Value("${adactin.hotel.url.login}")
+    private String adactinHotelLoginpageUrl;
+
+    @Value("${login.username}")
+    private String username;
+
+    @Value("${login.password}")
+    private String password;
+
+    @Value("${login.invalid.username}")
+    private String invalidUsername;
+
     private final String emptyUsername = "";
     private final String emptyPassword = "";
 

@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: shafarm
+  server:
+port: 8080
+
+login:
+  username: ShirazMalkani
+  password: adactinpassword
+  invalid:
+    username: abc
+    password: abc
+
+adactin:
+  hotel:
+    url:
+      login: https://adactin.com/HotelApp/
+
