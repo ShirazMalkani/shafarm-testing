@@ -1,6 +1,6 @@
 package com.raqami.shafarm.view;
 
-import com.raqami.shafarm.selenium.config.SeleniumConfig;
+import com.raqami.shafarm.config.SeleniumConfig;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;

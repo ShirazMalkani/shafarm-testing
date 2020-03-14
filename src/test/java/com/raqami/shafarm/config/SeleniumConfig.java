@@ -1,12 +1,10 @@
-package com.raqami.shafarm.selenium.config;
+package com.raqami.shafarm.config;
 
 import lombok.Getter;
-import lombok.Setter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -26,7 +24,11 @@ public class SeleniumConfig {
                 .build();
         options = new ChromeOptions();
         options.addArguments("--no-sandbox");                                           // Bypass OS security model, MUST BE THE VERY FIRST OPTION
-//        options.addArguments("--headless");
+
+        // browser won't be opened
+        // FOLLOWING SEVERE LEVEL LOG IS ALSO DUE TO THIS
+        // [1584195551.689][SEVERE]: Timed out receiving message from renderer: 0.100
+        options.addArguments("--headless");
         options.setExperimentalOption("useAutomationExtension", false);
         options.addArguments("start-maximized");                                        // open Browser in maximized mode
         options.addArguments("disable-infobars");                                       // disabling infobars
