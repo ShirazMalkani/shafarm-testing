@@ -7,21 +7,25 @@ import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 @Getter
 public class SeleniumConfig {
 
-    private static final String driverFile = "/home/shiraz/Documents/maju - spring 2020/Testing/chromedriver_linux64/chromedriver";
+    private static String driverFile;
     private ChromeDriverService service;
     private ChromeOptions options;
     private WebDriver driver;
 
-    public SeleniumConfig() {
-//        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+    public SeleniumConfig() throws IOException {
+
+        driverFile = PropertiesLoader.loadProperties("application.properties").getProperty("selenium.chromedriver");
         service = new ChromeDriverService.Builder()
                 .usingDriverExecutable(new File(driverFile))
                 .build();
+
         options = new ChromeOptions();
         options.addArguments("--no-sandbox");                                           // Bypass OS security model, MUST BE THE VERY FIRST OPTION
 
@@ -35,7 +39,6 @@ public class SeleniumConfig {
         options.addArguments("--disable-extensions");                                   // disabling extensions
         options.addArguments("--disable-gpu");                                          // applicable to windows os only
         options.addArguments("--disable-dev-shm-usage");                                // overcome limited resource problems
-//        options.merge(capabilities);
     }
 
     public void setupDriver() {

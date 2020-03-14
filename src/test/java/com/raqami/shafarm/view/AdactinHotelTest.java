@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 import static org.junit.Assert.assertEquals;
 
@@ -36,7 +37,7 @@ public class AdactinHotelTest {
     private final String emptyPassword = "";
 
     @BeforeClass
-    public static void setUp() {
+    public static void setUp() throws IOException {
         seleniumConfig = new SeleniumConfig();
     }
 
