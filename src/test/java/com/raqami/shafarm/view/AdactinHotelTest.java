@@ -20,7 +20,7 @@ public class AdactinHotelTest {
     private static SeleniumConfig seleniumConfig;
     private static WebDriver driver;
 
-    @Value("${adactin.hotel.url.login}")
+    @Value("${adactin.hotel.url.login:https://adactin.com/HotelApp/}")
     private String adactinHotelLoginpageUrl;
 
     @Value("${login.username}")
