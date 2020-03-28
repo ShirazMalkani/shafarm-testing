@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 @Getter
 public class SeleniumConfig {
 
-    private static final String driverFile = "/home/shiraz/Documents/maju - spring 2020/Testing/chromedriver_linux64/chromedriver";
+    private static final String driverFile = "C:\\Users\\alish\\Downloads\\maju\\Testing and automation\\project + asgns\\chromiumdriver\\chromedriver.exe";
     private ChromeDriverService service;
     private ChromeOptions options;
     private WebDriver driver;
@@ -26,7 +26,7 @@ public class SeleniumConfig {
                 .build();
         options = new ChromeOptions();
         options.addArguments("--no-sandbox");                                           // Bypass OS security model, MUST BE THE VERY FIRST OPTION
-//        options.addArguments("--headless");
+        options.addArguments("--headless");
         options.setExperimentalOption("useAutomationExtension", false);
         options.addArguments("start-maximized");                                        // open Browser in maximized mode
         options.addArguments("disable-infobars");                                       // disabling infobars
@@ -47,7 +47,7 @@ public class SeleniumConfig {
     }
 
     static private String findFile(String filename) {
-        String paths[] = {"/home/shiraz/Documents/maju - spring 2020/Testing/", "bin/", "target/classes"};
+        String[] paths = {"/home/shiraz/Documents/maju - spring 2020/Testing/", "bin/", "target/classes"};
         for (String path : paths) {
             if (new File(path + filename).exists())
                 return path + filename;
