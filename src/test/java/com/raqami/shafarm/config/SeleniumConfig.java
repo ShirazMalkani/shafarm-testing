@@ -1,31 +1,37 @@
-package com.raqami.shafarm.selenium.config;
+package com.raqami.shafarm.config;
 
 import lombok.Getter;
-import lombok.Setter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 @Getter
 public class SeleniumConfig {
 
-    private static final String driverFile = "C:\\Users\\alish\\Downloads\\maju\\Testing and automation\\project + asgns\\chromiumdriver\\chromedriver.exe";
+    private static String driverFile;
     private ChromeDriverService service;
     private ChromeOptions options;
     private WebDriver driver;
 
-    public SeleniumConfig() {
-//        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+    public SeleniumConfig() throws IOException {
+
+        driverFile = PropertiesLoader.loadProperties("application.properties").getProperty("selenium.chromedriver");
         service = new ChromeDriverService.Builder()
                 .usingDriverExecutable(new File(driverFile))
                 .build();
+
         options = new ChromeOptions();
         options.addArguments("--no-sandbox");                                           // Bypass OS security model, MUST BE THE VERY FIRST OPTION
+
+        // browser won't be opened
+        // FOLLOWING SEVERE LEVEL LOG IS ALSO DUE TO THIS
+        // [1584195551.689][SEVERE]: Timed out receiving message from renderer: 0.100
         options.addArguments("--headless");
         options.setExperimentalOption("useAutomationExtension", false);
         options.addArguments("start-maximized");                                        // open Browser in maximized mode
@@ -33,7 +39,6 @@ public class SeleniumConfig {
         options.addArguments("--disable-extensions");                                   // disabling extensions
         options.addArguments("--disable-gpu");                                          // applicable to windows os only
         options.addArguments("--disable-dev-shm-usage");                                // overcome limited resource problems
-//        options.merge(capabilities);
     }
 
     public void setupDriver() {

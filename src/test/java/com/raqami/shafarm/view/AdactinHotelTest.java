@@ -1,6 +1,6 @@
 package com.raqami.shafarm.view;
 
-import com.raqami.shafarm.selenium.config.SeleniumConfig;
+import com.raqami.shafarm.config.SeleniumConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.net.URISyntaxException;
+import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
@@ -38,7 +38,7 @@ public class AdactinHotelTest {
     private final String emptyPassword = "";
 
     @BeforeClass
-    public static void setup() {
+    public static void setup() throws IOException {
         log.info("setup() function called");
         seleniumConfig = new SeleniumConfig();
     }
@@ -101,7 +101,7 @@ public class AdactinHotelTest {
     }
 
     @Test
-    public void testLoginFailureWithEmptyUsernameAndEmptyPassword() {
+    public void testLoginFailureWithEmptyUsername() {
         log.info("Running testLoginFailureWithEmptyUsernameAndEmptyPassword");
         setURL(adactinHotelLoginpageUrl);
 
@@ -110,12 +110,12 @@ public class AdactinHotelTest {
 
         log.info("Parameters username:{}, password:{}", emptyUsername, emptyPassword);
         userNameElement.sendKeys(emptyUsername);
-        passwordElement.sendKeys(emptyPassword);
+        passwordElement.sendKeys(password);
 
         WebElement loginButtonElement = driver.findElement(By.className("login_button"));
         loginButtonElement.click();
 
-        WebElement usernameErrorSpan = driver.findElement(By.className("login_error"));
+        WebElement usernameErrorSpan = driver.findElement(By.id("username_span"));
 
         if(null == usernameErrorSpan) {
             assert false;
@@ -126,6 +126,29 @@ public class AdactinHotelTest {
         }
     }
 
+    @Test
+    public void testLoginFailureWithCorrectUsernameButEmptyPassword() {
+        setURL(adactinHotelLoginpageUrl);
+
+        WebElement userNameElement = driver.findElement(By.id("username"));
+        WebElement passwordElement = driver.findElement(By.id("password"));
+
+        userNameElement.sendKeys(username);
+        passwordElement.sendKeys(emptyPassword);
+
+        WebElement loginButtonElement = driver.findElement(By.className("login_button"));
+        loginButtonElement.click();
+
+        WebElement passwordErrorSpan = driver.findElement(By.id("password_span"));
+
+        if(null == passwordErrorSpan) {
+            assert false;
+        }
+        else {
+            assert true;
+            assertEquals("Enter Password", passwordErrorSpan.getText());
+        }
+    }
 
     @After
     public void closeDriver() {
