@@ -56,7 +56,6 @@ public class SeleniumConfig {
             if (new File(path + filename).exists())
                 return path + filename;
         }
-        System.out.println("hello");
         return "";
     }
 }
