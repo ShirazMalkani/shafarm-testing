@@ -8,7 +8,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 @Getter
@@ -47,12 +46,12 @@ public class SeleniumConfig {
     }
 
     static {
-        System.setProperty("webdriver.chrome.driver", "/home/shiraz/Documents/maju - spring 2020/Testing/chromedriver_linux64/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\alish\\Downloads\\maju\\Testing and automation\\project + asgns\\chromiumdriver\\chromedriver.exe");
 //        System.setProperty("webdriver.gecko.driver", findFile("geckodriver"));
     }
 
     static private String findFile(String filename) {
-        String paths[] = {"/home/shiraz/Documents/maju - spring 2020/Testing/", "bin/", "target/classes"};
+        String[] paths = {"/home/shiraz/Documents/maju - spring 2020/Testing/", "bin/", "target/classes"};
         for (String path : paths) {
             if (new File(path + filename).exists())
                 return path + filename;
